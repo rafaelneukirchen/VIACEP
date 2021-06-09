@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+</head>
+
+<body>
+    <form method="get">
+        <label>
+        Cep:
+        <input
+          name="cep"
+          type="text"
+          id="cep"
+          value=""
+          size="10"
+          maxlength="8"
+        />
+      </label>
+
+        <label>
+        Rua:
+        <input name="rua" type="text" id="rua" size="60" />
+      </label>
+        <label>
+        Bairro:
+        <input name="bairro" type="text" id="bairro" size="40" />
+      </label>
+        <label>
+        Cidade:
+        <input name="cidade" type="text" id="cidade" size="40" />   
+      </label>
+        <label>
+        Estado:
+        <input name="uf" type="text" id="uf" size="2" />
+      </label>
+    </form>
+    <script>
+        let cepInput = document.querySelector('#cep')
+        console.log(cepInput.value)
+        cepInput.addEventListener('input', e => {
+            let valor = cepInput.value;
+            if (valor.length === 8) {
+                procuraCEP(valor);
+            }
+        })
+
+        const procuraCEP = (valor) => { 
+            let request = new XMLHttpRequest();
+            let api = `https://viacep.com.br/ws/${valor}/json/`;
+            console.log('Procurando por.: ' + valor);
+            request.open('GET', api);
+            request.onload = () =>{
+                console.log(request.responseText);
+            };
+            request.send();
+        }
+    </script>
+</body>
+
+</html>
